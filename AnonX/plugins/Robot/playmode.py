@@ -1,23 +1,19 @@
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, Message
 
-from config import BANNED_USERS
-from strings import get_command
 from AnonX import app
-from AnonX.utils.database import (get_playmode, get_playtype,
-                                       is_nonadmin_chat)
+from AnonX.utils.database import get_playmode, get_playtype, is_nonadmin_chat
 from AnonX.utils.decorators import language
 from AnonX.utils.inline.settings import playmode_users_markup
+from config import BANNED_USERS
+from strings import get_command
 
 ### Commands
 PLAYMODE_COMMAND = get_command("PLAYMODE_COMMAND")
 
 
 @app.on_message(
-    filters.command(PLAYMODE_COMMAND)
-    & filters.group
-    & ~filters.edited
-    & ~BANNED_USERS
+    filters.command(PLAYMODE_COMMAND) & filters.group & ~filters.edited & ~BANNED_USERS
 )
 @language
 async def playmode_(client, message: Message, _):

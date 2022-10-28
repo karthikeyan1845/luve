@@ -1,5 +1,4 @@
-from pyrogram.types import (InlineQueryResultArticle,
-                            InputTextMessageContent)
+from pyrogram.types import InlineQueryResultArticle, InputTextMessageContent
 
 answer = []
 

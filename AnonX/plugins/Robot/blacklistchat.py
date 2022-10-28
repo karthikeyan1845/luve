@@ -1,14 +1,12 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-from config import BANNED_USERS
-from strings import get_command
 from AnonX import app
 from AnonX.misc import SUDOERS
-from AnonX.utils.database import (blacklist_chat,
-                                       blacklisted_chats,
-                                       whitelist_chat)
+from AnonX.utils.database import blacklist_chat, blacklisted_chats, whitelist_chat
 from AnonX.utils.decorators.language import language
+from config import BANNED_USERS
+from strings import get_command
 
 # Commands
 
@@ -50,9 +48,7 @@ async def white_funciton(client, message: Message, _):
     await message.reply_text("sᴏᴍᴇᴛʜɪɴɢ ᴡᴇɴᴛ ᴡʀᴏɴɢ.")
 
 
-@app.on_message(
-    filters.command(BLACKLISTEDCHAT_COMMAND) & ~BANNED_USERS
-)
+@app.on_message(filters.command(BLACKLISTEDCHAT_COMMAND) & ~BANNED_USERS)
 @language
 async def all_chats(client, message: Message, _):
     text = _["black_7"]

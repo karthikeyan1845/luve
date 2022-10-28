@@ -1,8 +1,8 @@
 from typing import Union
 
+from AnonX.misc import db
 from config import autoclean, chatstats, userstats
 from config.config import time_to_seconds
-from AnonX.misc import db
 
 
 async def put_queue(

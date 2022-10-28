@@ -3,22 +3,21 @@ import asyncio
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup
 
-from config import BANNED_USERS
 from AnonX import app
-from AnonX.utils.database import (get_global_tops,
-                                       get_particulars, get_userss)
+from AnonX.utils.database import get_global_tops, get_particulars, get_userss
 from AnonX.utils.decorators.language import languageCB
-from AnonX.utils.inline.playlist import (botplaylist_markup,
-                                              failed_top_markup,
-                                              top_play_markup)
+from AnonX.utils.inline.playlist import (
+    botplaylist_markup,
+    failed_top_markup,
+    top_play_markup,
+)
 from AnonX.utils.stream.stream import stream
+from config import BANNED_USERS
 
 loop = asyncio.get_running_loop()
 
 
-@app.on_callback_query(
-    filters.regex("get_playmarkup") & ~BANNED_USERS
-)
+@app.on_callback_query(filters.regex("get_playmarkup") & ~BANNED_USERS)
 @languageCB
 async def get_play_markup(client, CallbackQuery, _):
     try:
@@ -31,9 +30,7 @@ async def get_play_markup(client, CallbackQuery, _):
     )
 
 
-@app.on_callback_query(
-    filters.regex("get_top_playlists") & ~BANNED_USERS
-)
+@app.on_callback_query(filters.regex("get_top_playlists") & ~BANNED_USERS)
 @languageCB
 async def get_topz_playlists(client, CallbackQuery, _):
     try:
@@ -71,9 +68,7 @@ async def server_to_play(client, CallbackQuery, _):
     elif what == "Personal":
         stats = await get_userss(CallbackQuery.from_user.id)
     if not stats:
-        return await mystic.edit(
-            _["tracks_2"].format(what), reply_markup=upl
-        )
+        return await mystic.edit(_["tracks_2"].format(what), reply_markup=upl)
 
     def get_stats():
         results = {}
@@ -88,9 +83,7 @@ async def server_to_play(client, CallbackQuery, _):
                 )
             )
         if not results:
-            return mystic.edit(
-                _["tracks_2"].format(what), reply_markup=upl
-            )
+            return mystic.edit(_["tracks_2"].format(what), reply_markup=upl)
         details = []
         limit = 0
         for vidid, count in list_arranged.items():
@@ -101,9 +94,7 @@ async def server_to_play(client, CallbackQuery, _):
             limit += 1
             details.append(vidid)
         if not details:
-            return mystic.edit(
-                _["tracks_2"].format(what), reply_markup=upl
-            )
+            return mystic.edit(_["tracks_2"].format(what), reply_markup=upl)
         return details
 
     try:
@@ -125,10 +116,6 @@ async def server_to_play(client, CallbackQuery, _):
         )
     except Exception as e:
         ex_type = type(e).__name__
-        err = (
-            e
-            if ex_type == "AssistantErr"
-            else _["general_3"].format(ex_type)
-        )
+        err = e if ex_type == "AssistantErr" else _["general_3"].format(ex_type)
         return await mystic.edit_text(err)
     return await mystic.delete()

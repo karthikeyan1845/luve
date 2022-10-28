@@ -8,27 +8,24 @@ from pyrogram import filters
 load_dotenv()
 
 API_ID = int(getenv("API_ID", "13098464"))
-API_HASH = getenv("API_HASH", "d57f367d43b812aea87fac24d7973356") 
+API_HASH = getenv("API_HASH", "d57f367d43b812aea87fac24d7973356")
 
-BOT_TOKEN = getenv("BOT_TOKEN","5122793555:AAGOiB-N0kS4IyETnfkNicLTSuD3GHKTSHs")
+BOT_TOKEN = getenv("BOT_TOKEN", "5122793555:AAGOiB-N0kS4IyETnfkNicLTSuD3GHKTSHs")
 
-MONGO_DB_URI = getenv("MONGO_DB_URI","mongodb+srv://Hacker999:selvan868@cluster0.z27ur.mongodb.net/myFirstDatabase?retryWrites=true&w=majority") 
-
-DURATION_LIMIT_MIN = int(
-    getenv("DURATION_LIMIT", "120")
+MONGO_DB_URI = getenv(
+    "MONGO_DB_URI",
+    "mongodb+srv://Hacker999:selvan868@cluster0.z27ur.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
 )
 
-SONG_DOWNLOAD_DURATION = int(
-    getenv("SONG_DOWNLOAD_DURATION_LIMIT", "180")
-)
+DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", "120"))
+
+SONG_DOWNLOAD_DURATION = int(getenv("SONG_DOWNLOAD_DURATION_LIMIT", "180"))
 
 LOG_GROUP_ID = int(getenv("LOG_GROUP_ID", "-1001683259343"))
 
 MUSIC_BOT_NAME = getenv("MUSIC_BOT_NAME", "heart of love")
 
-OWNER_ID = list(
-    map(int, getenv("OWNER_ID", "5290306241").split())
-)
+OWNER_ID = list(map(int, getenv("OWNER_ID", "5290306241").split()))
 
 HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 
@@ -40,18 +37,14 @@ UPSTREAM_REPO = getenv(
 )
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "master")
 
-GIT_TOKEN = getenv("GIT_TOKEN", "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") 
+GIT_TOKEN = getenv("GIT_TOKEN", "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")
 
-SUPPORT_CHANNEL = getenv(
-    "SUPPORT_CHANNEL", "https://t.me/Ourschennai")
-SUPPORT_GROUP = getenv(
-    "SUPPORT_GROUP", "https://t.me/teamripfed")
+SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/Ourschennai")
+SUPPORT_GROUP = getenv("SUPPORT_GROUP", "https://t.me/teamripfed")
 
 AUTO_LEAVING_ASSISTANT = getenv("AUTO_LEAVING_ASSISTANT", "False")
 
-AUTO_LEAVE_ASSISTANT_TIME = int(
-    getenv("ASSISTANT_LEAVE_TIME", "5400")
-)
+AUTO_LEAVE_ASSISTANT_TIME = int(getenv("ASSISTANT_LEAVE_TIME", "5400"))
 
 AUTO_DOWNLOADS_CLEAR = getenv("AUTO_DOWNLOADS_CLEAR", "True")
 
@@ -72,20 +65,17 @@ SERVER_PLAYLIST_LIMIT = int(getenv("SERVER_PLAYLIST_LIMIT", "50"))
 
 PLAYLIST_FETCH_LIMIT = int(getenv("PLAYLIST_FETCH_LIMIT", "50"))
 
-CLEANMODE_DELETE_MINS = int(
-    getenv("CLEANMODE_MINS", "7")
-)
+CLEANMODE_DELETE_MINS = int(getenv("CLEANMODE_MINS", "7"))
 
-TG_AUDIO_FILESIZE_LIMIT = int(
-    getenv("TG_AUDIO_FILESIZE_LIMIT", "104857600")
-)
+TG_AUDIO_FILESIZE_LIMIT = int(getenv("TG_AUDIO_FILESIZE_LIMIT", "104857600"))
 
-TG_VIDEO_FILESIZE_LIMIT = int(
-    getenv("TG_VIDEO_FILESIZE_LIMIT", "1073741824")
-)
+TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", "1073741824"))
 # https://www.gbmb.org/mb-to-bytes
 
-STRING1 = getenv("STRING_SESSION1","BQCscKesZTdbWPxWZYcy0OzWlBPl23fNkwoAH4ZS2xLBbqIArEQlwoUAMLVdKPcHmZPTr2tkXG0E53e3IkPRnki9wssxGHmK9HqgYaRpEnV34LrVgZ0CrMBaUByY3uyGH3N4kJA3PoqOUWqsTvR0enh-hjEHr7MGLGdujSx6Anxm1Tg5uuq7sTtpiJfTxy2SqY1Ivf_OXULEApAHjoJ_G2CMYsmlupT7D2mB3oA8lqv-vZcfEfTwyFbLvyVix9-SRLvkO3uwLpsyZhsSrG2FZwUu4aboXGleoebAhzQFuarhpg8ONOL1FGLGZBwBQzdO3CXNORMTQzHc5mI06K17tXkwAAAAATtTqsEA")
+STRING1 = getenv(
+    "STRING_SESSION1",
+    "BQCscKesZTdbWPxWZYcy0OzWlBPl23fNkwoAH4ZS2xLBbqIArEQlwoUAMLVdKPcHmZPTr2tkXG0E53e3IkPRnki9wssxGHmK9HqgYaRpEnV34LrVgZ0CrMBaUByY3uyGH3N4kJA3PoqOUWqsTvR0enh-hjEHr7MGLGdujSx6Anxm1Tg5uuq7sTtpiJfTxy2SqY1Ivf_OXULEApAHjoJ_G2CMYsmlupT7D2mB3oA8lqv-vZcfEfTwyFbLvyVix9-SRLvkO3uwLpsyZhsSrG2FZwUu4aboXGleoebAhzQFuarhpg8ONOL1FGLGZBwBQzdO3CXNORMTQzHc5mI06K17tXkwAAAAATtTqsEA",
+)
 STRING2 = getenv("STRING_SESSION2", None)
 STRING3 = getenv("STRING_SESSION3", None)
 STRING4 = getenv("STRING_SESSION4", None)
@@ -103,7 +93,9 @@ clean = {}
 
 autoclean = []
 
-START_IMG_URL = getenv("START_IMG_URL", "https://telegra.ph/file/0b74c7f167963294c62f4.jpg")
+START_IMG_URL = getenv(
+    "START_IMG_URL", "https://telegra.ph/file/0b74c7f167963294c62f4.jpg"
+)
 
 PING_IMG_URL = getenv(
     "PING_IMG_URL",
@@ -168,16 +160,11 @@ SPOTIFY_PLAYLIST_IMG_URL = getenv(
 
 def time_to_seconds(time):
     stringt = str(time)
-    return sum(
-        int(x) * 60**i
-        for i, x in enumerate(reversed(stringt.split(":")))
-    )
+    return sum(int(x) * 60**i for i, x in enumerate(reversed(stringt.split(":"))))
 
 
 DURATION_LIMIT = int(time_to_seconds(f"{DURATION_LIMIT_MIN}:00"))
-SONG_DOWNLOAD_DURATION_LIMIT = int(
-    time_to_seconds(f"{SONG_DOWNLOAD_DURATION}:00")
-)
+SONG_DOWNLOAD_DURATION_LIMIT = int(time_to_seconds(f"{SONG_DOWNLOAD_DURATION}:00"))
 
 if UPSTREAM_REPO:
     if not re.match("(?:http|https)://", UPSTREAM_REPO):
@@ -265,6 +252,4 @@ if TELEGRAM_VIDEO_URL:
 
 
 if not MUSIC_BOT_NAME.isascii():
-    print(
-        "[Naku] - VA MAME VIBE PANNALAM "
-    )
+    print("[Naku] - VA MAME VIBE PANNALAM ")

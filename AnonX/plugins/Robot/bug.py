@@ -1,19 +1,13 @@
 from datetime import datetime
 
 from pyrogram import filters
-from pyrogram.types import (
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    CallbackQuery,
-    Message,
-)
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from AnonX import app as Client
-from config import (
-    OWNER_ID as owner_id,
-)
+from config import OWNER_ID as owner_id
 
 SUPPORT = "DevilsHeavenMF"
+
 
 def content(msg: Message) -> [None, str]:
     text_to_return = msg.text
@@ -32,18 +26,20 @@ def content(msg: Message) -> [None, str]:
 @Client.on_message(filters.command("bug"))
 async def bug(_, msg: Message):
     if msg.chat.username:
-        chat_username = (f"@{msg.chat.username}/`{msg.chat.id}`")
+        chat_username = f"@{msg.chat.username}/`{msg.chat.id}`"
     else:
-        chat_username = (f"ᴩʀɪᴠᴀᴛᴇ ɢʀᴏᴜᴩ/`{msg.chat.id}`")
+        chat_username = f"ᴩʀɪᴠᴀᴛᴇ ɢʀᴏᴜᴩ/`{msg.chat.id}`"
 
     bugs = content(msg)
     user_id = msg.from_user.id
-    mention = "["+msg.from_user.first_name+"](tg://user?id="+str(msg.from_user.id)+")"
+    mention = (
+        "[" + msg.from_user.first_name + "](tg://user?id=" + str(msg.from_user.id) + ")"
+    )
     datetimes_fmt = "%d-%m-%Y"
     datetimes = datetime.utcnow().strftime(datetimes_fmt)
 
     thumb = "https://telegra.ph/file/56d1760224589ee370186.jpg"
-    
+
     bug_report = f"""
 **#ʙᴜɢ :** **@anonymous_was_bot**
 
@@ -55,7 +51,6 @@ async def bug(_, msg: Message):
 
 **ᴇᴠᴇɴᴛ sᴛᴀᴍᴩ :** **{datetimes}**"""
 
-    
     if msg.chat.type == "private":
         await msg.reply_text("<b>» ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ ɪs ᴏɴʟʏ ғᴏʀ ɢʀᴏᴜᴩs.</b>")
         return
@@ -67,22 +62,15 @@ async def bug(_, msg: Message):
             )
             return
         else:
-            await msg.reply_text(
-                "ᴄʜᴜᴍᴛɪʏᴀ ᴏᴡɴᴇʀ!"
-            )
+            await msg.reply_text("ᴄʜᴜᴍᴛɪʏᴀ ᴏᴡɴᴇʀ!")
     elif user_id != owner_id:
         if bugs:
             await msg.reply_text(
                 f"<b>ʙᴜɢ ʀᴇᴩᴏʀᴛ : {bugs}</b>\n\n"
                 "<b>» ʙᴜɢ sᴜᴄᴄᴇssғᴜʟʟʏ ʀᴇᴩᴏʀᴛᴇᴅ ᴀᴛ sᴜᴩᴩᴏʀᴛ ᴄʜᴀᴛ !</b>",
                 reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton(
-                                "• ᴄʟᴏsᴇ •", callback_data=f"close_reply")
-                        ]
-                    ]
-                )
+                    [[InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data=f"close_reply")]]
+                ),
             )
             await Client.send_photo(
                 SUPPORT,
@@ -91,23 +79,24 @@ async def bug(_, msg: Message):
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
+                            InlineKeyboardButton("• ᴠɪᴇᴡ ʙᴜɢ •", url=f"{msg.link}"),
                             InlineKeyboardButton(
-                                "• ᴠɪᴇᴡ ʙᴜɢ •", url=f"{msg.link}"),
-                            InlineKeyboardButton(
-                                "• ᴄʟᴏsᴇ •", callback_data="close_send_photo")
+                                "• ᴄʟᴏsᴇ •", callback_data="close_send_photo"
+                            ),
                         ]
                     ]
-                )
+                ),
             )
         else:
             await msg.reply_text(
                 f"<b>» ɴᴏ ʙᴜɢ ᴛᴏ ʀᴇᴩᴏʀᴛ !</b>",
             )
-        
+
 
 @Client.on_callback_query(filters.regex("close_reply"))
 async def close_reply(msg, CallbackQuery):
     await CallbackQuery.message.delete()
+
 
 @Client.on_callback_query(filters.regex("close_send_photo"))
 async def close_send_photo(_, CallbackQuery):

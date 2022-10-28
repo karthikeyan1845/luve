@@ -3,6 +3,7 @@ import traceback
 from functools import wraps
 
 from pyrogram.errors.exceptions.forbidden_403 import ChatWriteForbidden
+
 from AnonX import app
 from AnonX.logging import LOGGER
 

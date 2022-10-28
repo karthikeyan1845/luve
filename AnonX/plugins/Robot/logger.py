@@ -1,11 +1,11 @@
 from pyrogram import filters
 
 import config
-from strings import get_command
 from AnonX import app
 from AnonX.misc import SUDOERS
 from AnonX.utils.database import add_off, add_on
 from AnonX.utils.decorators.language import language
+from strings import get_command
 
 # Commands
 LOGGER_COMMAND = get_command("LOGGER_COMMAND")

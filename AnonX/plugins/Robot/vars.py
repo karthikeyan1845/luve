@@ -3,20 +3,18 @@ import asyncio
 from pyrogram import filters
 
 import config
-from strings import get_command
 from AnonX import app
 from AnonX.misc import SUDOERS
 from AnonX.utils.database.memorydatabase import get_video_limit
 from AnonX.utils.formatters import convert_bytes
+from strings import get_command
 
 VARS_COMMAND = get_command("VARS_COMMAND")
 
 
 @app.on_message(filters.command(VARS_COMMAND) & SUDOERS)
 async def varsFunc(client, message):
-    mystic = await message.reply_text(
-        "ᴩʟᴇᴀsᴇ ᴡᴀɪᴛ... ɢᴇᴛᴛɪɴɢ ʏᴏᴜʀ ᴄᴏɴғɪɢ ᴠᴀʀɪᴀʙʟᴇs..."
-    )
+    mystic = await message.reply_text("ᴩʟᴇᴀsᴇ ᴡᴀɪᴛ... ɢᴇᴛᴛɪɴɢ ʏᴏᴜʀ ᴄᴏɴғɪɢ ᴠᴀʀɪᴀʙʟᴇs...")
     v_limit = await get_video_limit()
     bot_name = config.MUSIC_BOT_NAME
     up_r = f"[ʀᴇᴩᴏ]({config.UPSTREAM_REPO})"
@@ -67,10 +65,7 @@ async def varsFunc(client, message):
         token = "ɴᴏ"
     else:
         token = "ʏᴇs"
-    if (
-        not config.SPOTIFY_CLIENT_ID
-        and not config.SPOTIFY_CLIENT_SECRET
-    ):
+    if not config.SPOTIFY_CLIENT_ID and not config.SPOTIFY_CLIENT_SECRET:
         sotify = "ɴᴏ"
     else:
         sotify = "ʏᴇs"

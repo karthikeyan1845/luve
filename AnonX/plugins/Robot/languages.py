@@ -2,12 +2,11 @@ from pykeyboard import InlineKeyboard
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, Message
 
-from config import BANNED_USERS
-from strings import get_command, get_string
 from AnonX import app
 from AnonX.utils.database import get_lang, set_lang
-from AnonX.utils.decorators import (ActualAdminCB, language,
-                                         languageCB)
+from AnonX.utils.decorators import ActualAdminCB, language, languageCB
+from config import BANNED_USERS
+from strings import get_command, get_string
 
 # Languages Available
 
@@ -21,9 +20,7 @@ def lanuages_keyboard(_):
         ),
     )
     keyboard.row(
-        InlineKeyboardButton(
-            text=_["CLOSE_BUTTON"], callback_data=f"close"
-        ),
+        InlineKeyboardButton(text=_["CLOSE_BUTTON"], callback_data=f"close"),
     )
     return keyboard
 
@@ -32,10 +29,7 @@ LANGUAGE_COMMAND = get_command("LANGUAGE_COMMAND")
 
 
 @app.on_message(
-    filters.command(LANGUAGE_COMMAND)
-    & filters.group
-    & ~filters.edited
-    & ~BANNED_USERS
+    filters.command(LANGUAGE_COMMAND) & filters.group & ~filters.edited & ~BANNED_USERS
 )
 @language
 async def langs_command(client, message: Message, _):
@@ -54,14 +48,10 @@ async def lanuagecb(client, CallbackQuery, _):
     except:
         pass
     keyboard = lanuages_keyboard(_)
-    return await CallbackQuery.edit_message_reply_markup(
-        reply_markup=keyboard
-    )
+    return await CallbackQuery.edit_message_reply_markup(reply_markup=keyboard)
 
 
-@app.on_callback_query(
-    filters.regex(r"languages:(.*?)") & ~BANNED_USERS
-)
+@app.on_callback_query(filters.regex(r"languages:(.*?)") & ~BANNED_USERS)
 @ActualAdminCB
 async def language_markup(client, CallbackQuery, _):
     langauge = (CallbackQuery.data).split(":")[1]
@@ -82,6 +72,4 @@ async def language_markup(client, CallbackQuery, _):
         )
     await set_lang(CallbackQuery.message.chat.id, langauge)
     keyboard = lanuages_keyboard(_)
-    return await CallbackQuery.edit_message_reply_markup(
-        reply_markup=keyboard
-    )
+    return await CallbackQuery.edit_message_reply_markup(reply_markup=keyboard)

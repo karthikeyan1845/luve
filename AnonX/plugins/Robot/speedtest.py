@@ -5,9 +5,9 @@ import speedtest
 import wget
 from pyrogram import filters
 
-from strings import get_command
 from AnonX import app
 from AnonX.misc import SUDOERS
+from strings import get_command
 
 # Commands
 SPEEDTEST_COMMAND = get_command("SPEEDTEST_COMMAND")
@@ -47,8 +47,6 @@ async def speedtest_function(client, message):
 **__sᴩᴏɴsᴏʀ:__** {result['server']['sponsor']}
 **__ʟᴀᴛᴇɴᴄʏ:__** {result['server']['latency']}  
 **__ᴩɪɴɢ:__** {result['ping']}"""
-    msg = await app.send_photo(
-        chat_id=message.chat.id, photo=path, caption=output
-    )
+    msg = await app.send_photo(chat_id=message.chat.id, photo=path, caption=output)
     os.remove(path)
     await m.delete()

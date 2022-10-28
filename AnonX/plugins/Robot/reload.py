@@ -3,15 +3,14 @@ import asyncio
 from pyrogram import filters
 from pyrogram.types import CallbackQuery, Message
 
-from config import BANNED_USERS, MUSIC_BOT_NAME, adminlist, lyrical
-from strings import get_command
 from AnonX import app
 from AnonX.core.call import Anon
 from AnonX.misc import db
 from AnonX.utils.database import get_authuser_names, get_cmode
-from AnonX.utils.decorators import (ActualAdminCB, AdminActual,
-                                         language)
+from AnonX.utils.decorators import ActualAdminCB, AdminActual, language
 from AnonX.utils.formatters import alpha_to_int
+from config import BANNED_USERS, MUSIC_BOT_NAME, adminlist, lyrical
+from strings import get_command
 
 ### Multi-Lang Commands
 RELOAD_COMMAND = get_command("RELOAD_COMMAND")
@@ -19,18 +18,13 @@ RESTART_COMMAND = get_command("RESTART_COMMAND")
 
 
 @app.on_message(
-    filters.command(RELOAD_COMMAND)
-    & filters.group
-    & ~filters.edited
-    & ~BANNED_USERS
+    filters.command(RELOAD_COMMAND) & filters.group & ~filters.edited & ~BANNED_USERS
 )
 @language
 async def reload_admin_cache(client, message: Message, _):
     try:
         chat_id = message.chat.id
-        admins = await app.get_chat_members(
-            chat_id, filter="administrators"
-        )
+        admins = await app.get_chat_members(chat_id, filter="administrators")
         authusers = await get_authuser_names(chat_id)
         adminlist[chat_id] = []
         for user in admins:
@@ -47,10 +41,7 @@ async def reload_admin_cache(client, message: Message, _):
 
 
 @app.on_message(
-    filters.command(RESTART_COMMAND)
-    & filters.group
-    & ~filters.edited
-    & ~BANNED_USERS
+    filters.command(RESTART_COMMAND) & filters.group & ~filters.edited & ~BANNED_USERS
 )
 @AdminActual
 async def restartbot(client, message: Message, _):
@@ -97,9 +88,7 @@ async def close_menu(_, CallbackQuery):
         return
 
 
-@app.on_callback_query(
-    filters.regex("stop_downloading") & ~BANNED_USERS
-)
+@app.on_callback_query(filters.regex("stop_downloading") & ~BANNED_USERS)
 @ActualAdminCB
 async def stop_download(client, CallbackQuery: CallbackQuery, _):
     message_id = CallbackQuery.message.message_id
@@ -120,9 +109,7 @@ async def stop_download(client, CallbackQuery: CallbackQuery, _):
                 lyrical.pop(message_id)
             except:
                 pass
-            await CallbackQuery.answer(
-                "ᴅᴏᴡɴʟᴏᴀᴅɪɢ ᴄᴀɴᴄᴇʟʟᴇᴅ.", show_alert=True
-            )
+            await CallbackQuery.answer("ᴅᴏᴡɴʟᴏᴀᴅɪɢ ᴄᴀɴᴄᴇʟʟᴇᴅ.", show_alert=True)
             return await CallbackQuery.edit_message_text(
                 f"ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ ᴩʀᴏᴄᴇss ᴄᴀɴᴄᴇʟʟᴇᴅ ʙʏ {CallbackQuery.from_user.mention}"
             )
@@ -130,6 +117,4 @@ async def stop_download(client, CallbackQuery: CallbackQuery, _):
             return await CallbackQuery.answer(
                 "ғᴀɪʟᴇᴅ ᴛᴏ ᴄᴀɴᴄᴇʟ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ...", show_alert=True
             )
-    await CallbackQuery.answer(
-        "ғᴀɪʟᴇᴅ ᴛᴏ ʀᴇᴄᴏɢɴɪᴢᴇ ᴛʜᴇ ᴏɴɢᴏɪɴɢ ᴛᴀsᴋ.", show_alert=True
-    )
+    await CallbackQuery.answer("ғᴀɪʟᴇᴅ ᴛᴏ ʀᴇᴄᴏɢɴɪᴢᴇ ᴛʜᴇ ᴏɴɢᴏɪɴɢ ᴛᴀsᴋ.", show_alert=True)

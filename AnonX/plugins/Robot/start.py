@@ -1,27 +1,29 @@
 import asyncio
 
 from pyrogram import filters
-from pyrogram.types import (InlineKeyboardButton,
-                            InlineKeyboardMarkup, Message)
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtubesearchpython.__future__ import VideosSearch
 
 import config
-from config import BANNED_USERS
-from config.config import OWNER_ID
-from strings import get_command, get_string
 from AnonX import Telegram, YouTube, app
 from AnonX.misc import SUDOERS
 from AnonX.plugins.Robot.playlist import del_plist_msg
 from AnonX.plugins.Robot.sudoers import sudoers_list
-from AnonX.utils.database import (add_served_chat,
-                                       add_served_user,
-                                       blacklisted_chats,
-                                       get_assistant, get_lang,
-                                       get_userss, is_on_off,
-                                       is_served_private_chat)
+from AnonX.utils.database import (
+    add_served_chat,
+    add_served_user,
+    blacklisted_chats,
+    get_assistant,
+    get_lang,
+    get_userss,
+    is_on_off,
+    is_served_private_chat,
+)
 from AnonX.utils.decorators.language import LanguageStart
-from AnonX.utils.inline import (help_pannel, private_panel,
-                                     start_pannel)
+from AnonX.utils.inline import help_pannel, private_panel, start_pannel
+from config import BANNED_USERS
+from config.config import OWNER_ID
+from strings import get_command, get_string
 
 loop = asyncio.get_running_loop()
 
@@ -39,10 +41,11 @@ async def start_comm(client, message: Message, _):
         name = message.text.split(None, 1)[1]
         if name[0:4] == "help":
             keyboard = help_pannel(_)
-            await message.reply_sticker("CAACAgUAAxkBAAIjVmKPYTFByKZlCo9d8mUv8QVAJEw7AAL9BQACiy14VGoQxOCDfE1KJAQ")
+            await message.reply_sticker(
+                "CAACAgUAAxkBAAIjVmKPYTFByKZlCo9d8mUv8QVAJEw7AAL9BQACiy14VGoQxOCDfE1KJAQ"
+            )
             return await message.reply_photo(
-                       photo=config.START_IMG_URL,
-                       caption=_["help_1"], reply_markup=keyboard
+                photo=config.START_IMG_URL, caption=_["help_1"], reply_markup=keyboard
             )
         if name[0:4] == "song":
             return await message.reply_text(_["song_2"])
@@ -91,9 +94,7 @@ async def start_comm(client, message: Message, _):
                 return videoid, msg
 
             try:
-                videoid, msg = await loop.run_in_executor(
-                    None, get_stats
-                )
+                videoid, msg = await loop.run_in_executor(None, get_stats)
             except Exception as e:
                 print(e)
                 return
@@ -118,9 +119,7 @@ async def start_comm(client, message: Message, _):
             if lyrics:
                 return await Telegram.send_split_text(message, lyrics)
             else:
-                return await message.reply_text(
-                    "ғᴀɪʟᴇᴅ ᴛᴏ ɢᴇᴛ ʟʏʀɪᴄs."
-                )
+                return await message.reply_text("ғᴀɪʟᴇᴅ ᴛᴏ ɢᴇᴛ ʟʏʀɪᴄs.")
         if name[0:3] == "del":
             await del_plist_msg(client=client, message=message, _=_)
         if name[0:3] == "inf":
@@ -132,9 +131,7 @@ async def start_comm(client, message: Message, _):
                 title = result["title"]
                 duration = result["duration"]
                 views = result["viewCount"]["short"]
-                thumbnail = result["thumbnails"][0]["url"].split("?")[
-                    0
-                ]
+                thumbnail = result["thumbnails"][0]["url"].split("?")[0]
                 channellink = result["channel"]["link"]
                 channel = result["channel"]["name"]
                 link = result["link"]
@@ -155,9 +152,7 @@ async def start_comm(client, message: Message, _):
             key = InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(
-                            text="• ʏᴏᴜᴛᴜʙᴇ •", url=f"{link}"
-                        ),
+                        InlineKeyboardButton(text="• ʏᴏᴜᴛᴜʙᴇ •", url=f"{link}"),
                         InlineKeyboardButton(
                             text="• sᴜᴩᴩᴏʀᴛ •", url="https://t.me/DevilsHeavenMF"
                         ),
@@ -188,12 +183,12 @@ async def start_comm(client, message: Message, _):
         out = private_panel(_, app.username, OWNER)
         if config.START_IMG_URL:
             try:
-                await message.reply_sticker("CAACAgUAAxkBAAIjTGKPYCq3keRZgNbshxtJ5k7H609OAAIZBgACYAF5VIerYoMcSln8JAQ")
+                await message.reply_sticker(
+                    "CAACAgUAAxkBAAIjTGKPYCq3keRZgNbshxtJ5k7H609OAAIZBgACYAF5VIerYoMcSln8JAQ"
+                )
                 await message.reply_photo(
                     photo=config.START_IMG_URL,
-                    caption=_["start_2"].format(
-                        config.MUSIC_BOT_NAME
-                    ),
+                    caption=_["start_2"].format(config.MUSIC_BOT_NAME),
                     reply_markup=InlineKeyboardMarkup(out),
                 )
             except:
@@ -226,10 +221,8 @@ async def testbot(client, message: Message, _):
     OWNER = OWNER_ID[0]
     out = start_pannel(_, app.username, OWNER)
     return await message.reply_photo(
-               photo=config.START_IMG_URL,
-               caption=_["start_1"].format(
-            message.chat.title, config.MUSIC_BOT_NAME
-        ),
+        photo=config.START_IMG_URL,
+        caption=_["start_1"].format(message.chat.title, config.MUSIC_BOT_NAME),
         reply_markup=InlineKeyboardMarkup(out),
     )
 
@@ -278,15 +271,11 @@ async def welcome(client, message: Message):
                 )
             if member.id in config.OWNER_ID:
                 return await message.reply_text(
-                    _["start_4"].format(
-                        config.MUSIC_BOT_NAME, member.mention
-                    )
+                    _["start_4"].format(config.MUSIC_BOT_NAME, member.mention)
                 )
             if member.id in SUDOERS:
                 return await message.reply_text(
-                    _["start_5"].format(
-                        config.MUSIC_BOT_NAME, member.mention
-                    )
+                    _["start_5"].format(config.MUSIC_BOT_NAME, member.mention)
                 )
             return
         except:
